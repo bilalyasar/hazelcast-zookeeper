@@ -15,9 +15,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jdk.version>1.6</jdk.version>
-        <hazelcast.version>3.7</hazelcast.version>
+        <hazelcast.version>3.7.2</hazelcast.version>
 
-        <curator.version>2.9.0</curator.version>
+        <curator.version>2.11.0</curator.version>
 
         <junit.version>4.12</junit.version>
         <mockito.version>2.0.31-beta</mockito.version>
@@ -167,7 +167,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration combine.self="override">
-                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
                     <runOrder>failedfirst</runOrder>
                     <argLine>
                         -Xms128m -Xmx1G -XX:MaxPermSize=128M

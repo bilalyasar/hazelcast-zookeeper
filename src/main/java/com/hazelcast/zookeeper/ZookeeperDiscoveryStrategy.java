@@ -63,6 +63,7 @@ public class ZookeeperDiscoveryStrategy
 
     @Override
     public void start() {
+        System.out.println("DiscoveryServiceStart");
         startCuratorClient();
         /* Added this for clients, because Discovery SPI does not set
         discoveryNode for clients */
@@ -100,6 +101,7 @@ public class ZookeeperDiscoveryStrategy
     }
 
     private void startCuratorClient() {
+        System.out.println("StartCuratorClient");
         String zookeeperUrl = getOrNull(ZookeeperDiscoveryProperties.ZOOKEEPER_URL);
         if (zookeeperUrl == null) {
             throw new IllegalStateException("Zookeeper URL cannot be null.");
@@ -107,8 +109,14 @@ public class ZookeeperDiscoveryStrategy
         if (logger.isFinestEnabled()) {
             logger.finest("Using " + zookeeperUrl + " as Zookeeper URL");
         }
+        System.out.println("ZOOKEEPERURL: " + zookeeperUrl);
         client = CuratorFrameworkFactory.newClient(zookeeperUrl, new ExponentialBackoffRetry(CURATOR_BASE_SLEEP_TIME_MS, 3));
         client.start();
+        try {
+            client.blockUntilConnected();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Iterable<DiscoveryNode> discoverNodes() {
